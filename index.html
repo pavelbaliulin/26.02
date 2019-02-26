@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <!-- <style>
+      no-valid input:invalid {
+        border: 1px solid red;
+      }
+    </style>
+    <div>
+      <form name="login" action="#" class="">
+        <div>
+          <input type="email" placeholder="email" name="email" required />
+        </div>
+        <br />
+        <div>
+          <input type="password" placeholder="password" name="pass" required />
+        </div>
+        <button name="send">send</button>
+      </form>
+		</div> -->
+    <button id="$export">export</button>
+    <button id="$import">import</button>
+  </body>
+  <script>
+      var a = [
+        { name: "1", ids: [1, 10], line: Math.random().toString(36) },
+        { name: "2", ids: [2, 20], line: Math.random().toString(36) },
+        { name: "3", ids: [3, 30], line: Math.random().toString(36) },
+        { name: "4", ids: [4, 40], line: Math.random().toString(36) },
+        { name: "5", ids: [5, 50], line: Math.random().toString(36) },
+        { name: "6", ids: [6, 60], line: Math.random().toString(36) }
+      ];
+
+      var b = [
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        },
+        {
+          id1: Math.random().toString(36),
+          id2: Math.random().toString(36),
+          id3: Math.random().toString(36),
+          id4: Math.random().toString(36)
+        }
+      ];
+
+      $export.onclick = function(e) {
+        e.preventDefault();
+        let buffer = "data:text/csv;charset=utf-8,";
+        let separator = "<------->";
+        const NEXT_LINE = "\r\n";
+
+        let len = Math.max(a.lenght, b.length);
+
+        let keys = Object.keys(a[0]);
+        keys.push(separator);
+        keys = [...keys, ...Object.keys(b[0])];
+        keys.push(NEXT_LINE);
+        buffer += keys.join(";");
+
+        for (let i = 0; i < len; i++) {
+          let line = [];
+          if (a[i]) {
+            Object.keys(a[0]).forEach(key => {
+              line.push(a[i][key]);
+            });
+            line.push(separator);
+          } else {
+     		Object.keys(a[0]).forEach(key => {
+              line.push('');
+     		})
+     if (b[i]) {
+            Object.keys(b[0]).forEach(key => {
+              line.push(b[i][key]);
+     		});
+     	}	else{
+     	Object.keys(a[0]).forEach(key => {
+     			line.push('');
+     	})
+            line.push(NEXT_LINE);
+            buffer += line.join(";");
+     	}
+        }
+        const link = document.createElement("a");
+        console.log(link);
+        link.setAttribute("download", "file.csv");
+        link.setAttribute("href", encodeURI(buffer));
+        document.body.appendChild(link);
+        link.click();
+      };
+
+      // const FORM = document.forms.login;
+      // FORM.onsubmit = function(event) {
+      //   event.preventDefault();
+
+      //   if (!/.+@.+\..+/.test(this.email.value)) {
+      //     alert("Email invalid!!!");
+      //     return this.email.focus();
+      //   }
+
+      //   let passValid = /.{0,}[A-Z]+.{0}/.test(this.pass.value);
+      //   passValid = passValid && /.{0,}[0-9]+.{0,}/.test(this.pass.value);
+      //   passValid = passValid && /.{0,}[a-z]+.{0,}/.test(this.pass.value);
+      //   passValid = passValid && /.{4,}/.test(this.pass.value);
+
+      //   if (!passValid) {
+      //     alert(this.pass.value);
+      //     return this.email.focus();
+      //   }
+      //   FORM.parentElement.removeChild(FORM);
+      //   const login = document.createElement("h1");
+      //   login.innerText = `user ${this.email.value} is login`;
+      //   document.body.appendChild(login);
+      // };
+
+      // FORM.send.onclick = function() {
+      //   this.classList.add("no-valid");
+      //   console.log(this);
+    // }.bind(FORM);
+    $import.onclick = function(){
+    const link = document.createElement("input");
+
+        input.setAttribute("type", "file");
+        input.onchange = function() {
+    	 const reader = new FileReader();
+    	 reader.readAsText(this.files[0]);
+    	 reader.onload = function(){
+    		 console.log(this.result);
+    	 };
+    	 reader.readAsDataURL
+     }
+    }
+  </script>
+</html>
